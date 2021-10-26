@@ -12,12 +12,10 @@ class SmsBy
      */
     public function __construct(string $token = null)
     {
-       $token = $token ?: config('services.sms_by');
-       if (!empty($token))
-          $this->token = $token;
-      else {
-          exit("Код токена не указан. Вы можете получить его здесь: https://app.sms.by/user-api/token");
-      }
+        $this->token = $token ?: config('services.sms_by');
+        if (empty($this->token)) {
+           exit("Код токена не указан. Вы можете получить его здесь: https://app.sms.by/user-api/token");
+        }
     }
 
     /**
@@ -125,7 +123,7 @@ class SmsBy
     public function sendSms($message_id, $phone)
     {
         $params['message_id'] = (integer)$message_id;
-        $params['phone'] = $phone;
+        $params['phone'] = preg_replace('~\D+~','', $phone);
         return $this->sendRequest('sendSms', $params);
     }
 
