@@ -34,7 +34,7 @@ class SmsRu
         if (config('app.country') == 'BY') {
             $sms = new SmsBy();
             $res = $sms->createSMSMessage($text);
-            return $sms->sendSms($res->message_id, $phone);
+            return is_object($sms->sendSms($res->message_id, $phone));
         }
         $data = new SMS;
         $data->to = $phone;
