@@ -41,9 +41,9 @@ class SmsRu
         $data->to = $phone;
         $data->text = $text;
         $data->from = config('sms-ru.from');
-        $data->translit = config('sms-ru.translit');;
+        $data->translit = config('sms-ru.translit');
         $data->test = config('sms-ru.test');;
-        $data->partner_id = config('sms-ru.partner_id');;
+        $data->partner_id = config('sms-ru.partner_id');
         $sms = $this->_client->send_one($data);
         return $sms->status === "OK";
     }
