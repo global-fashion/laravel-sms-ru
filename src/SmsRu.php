@@ -29,8 +29,14 @@ class SmsRu
      * @param string $text
      * @return bool
      */
-    public function send(string $phone,string $text):bool
+    public function send(string $phone, string $text)
     {
+        if (config('app.country') == 'BY') {
+            $sms = new SmsBy();
+            $res = $sms->createSMSMessage($text);
+            $res = $sms->sendSms($res->message_id, $phone);
+            return $res;
+        }
         $data = new SMS;
         $data->to = $phone;
         $data->text = $text;
