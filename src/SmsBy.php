@@ -10,8 +10,9 @@ class SMS_BY
     /**
      * $token - API ключ
      */
-    public function __construct($token)
+    public function __construct(string $token = null)
     {
+       $token = $token ?: config('services.sms_by');
        if (!empty($token))
           $this->token = $token;
       else {
