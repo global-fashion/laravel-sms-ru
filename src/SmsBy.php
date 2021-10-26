@@ -2,7 +2,7 @@
 
 namespace CodersStudio\SmsRu;
 
-class SMS_BY
+class SmsBy
 {
     private $token;
     private $API_URL = "https://app.sms.by/api/v1/";
