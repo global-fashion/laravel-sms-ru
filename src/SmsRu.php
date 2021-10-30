@@ -3,7 +3,8 @@
 namespace CodersStudio\SmsRu;
 use CodersStudio\SmsRu\Vendor\SmsRu AS SmsRuClient;
 use CodersStudio\SmsRu\Classes\SMS;
-use stdClass;
+use ErrorException;
+use Exception;
 
 class SmsRu
 {
@@ -33,8 +34,12 @@ class SmsRu
     {
         if (config('app.country') == 'BY') {
             $sms = new SmsBy();
-            $res = $sms->createSMSMessage($text);
-            $response = $sms->sendSms($res->message_id, $phone);
+            try {
+                $res = $sms->createSMSMessage($text);
+                $response = $sms->sendSms($res->message_id, $phone);
+            } catch (ErrorException | Exception $exception) {
+                return false;
+            }
             return is_object($response) AND isset($response->sms_id) AND isset($response->status) AND in_array($response->status, ['NEW']);
         }
         $data = new SMS;
@@ -42,7 +47,7 @@ class SmsRu
         $data->text = $text;
         $data->from = config('sms-ru.from');
         $data->translit = config('sms-ru.translit');
-        $data->test = config('sms-ru.test');;
+        $data->test = config('sms-ru.test');
         $data->partner_id = config('sms-ru.partner_id');
         $sms = $this->_client->send_one($data);
         return $sms->status === "OK";
