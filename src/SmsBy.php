@@ -50,9 +50,12 @@ class SmsBy
         $result = curl_exec($ch);
         curl_close($ch);
         $result = json_decode($result);
-        if ($command === 'createSMSMessage' AND isset($result->message_id) AND (int) $result->message_id) {
-            return $result->message_id;
+        if ($command === 'createSMSMessage') {
+            return $result;
         }
+//        if ($command === 'createSMSMessage' AND isset($result->message_id) AND (int) $result->message_id) {
+//            return $result->message_id;
+//        }
         if (isset($result->error)) {
             $this->error($result->error);
             return false;
