@@ -32,16 +32,6 @@ class SmsRu
      */
     public function send(string $phone, string $text)
     {
-        if (config('app.country') == 'BY') {
-            $sms = new SmsBy();
-            try {
-                $res = $sms->createSMSMessage($text);
-                $response = $sms->sendSms($res->message_id, $phone);
-            } catch (ErrorException | Exception $exception) {
-                return false;
-            }
-            return is_object($response) AND isset($response->sms_id) AND isset($response->status) AND in_array($response->status, ['NEW']);
-        }
         $data = new SMS;
         $data->to = $phone;
         $data->text = $text;
