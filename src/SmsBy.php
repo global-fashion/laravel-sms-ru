@@ -170,7 +170,7 @@ class SmsBy
     /**
      * Метод-обёртка для команды createPasswordObject
      * $type_id - тип создаваемого объекта пароля, может принимать значения letters, numbers и both
-     * $len - длина создаваемого объекта пароля, целое число от 1 до 16
+     * $len - Длинна создаваемого объекта пароля, целое число от 1 до 16
      */
     public function createPasswordObject($type_id, $len)
     {
@@ -183,7 +183,7 @@ class SmsBy
      * Метод-обёртка для команды editPasswordObject
      * $password_object_id - ID созданного объекта пароля
      * $type_id - тип создаваемого объекта пароля, может принимать значения letters, numbers и both
-     * $len - длина создаваемого объекта пароля, целое число от 1 до 16
+     * $len - Длинна создаваемого объекта пароля, целое число от 1 до 16
      */
     public function editPasswordObject($password_object_id, $type_id, $len)
     {
